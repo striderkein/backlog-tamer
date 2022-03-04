@@ -16,30 +16,44 @@ EOM
   exit 2
 }
 
-# issue=$1
+sub_issue(){
+  view=view/
+  issue=$1
+  if [ -z $issue ]; then
+    current_branch_name=$(git rev-parse --abbrev-ref HEAD)
+    # xxx/<ISSUE_NUMBER> の 'xxx/' を削除して '<ISSUE_NUMBER>' を取得したい
+    issue=`echo $current_branch_name | sed -e "s/.*\///g"`
+  fi
+  echo $backlog_url$view$issue
+  exit 0
+}
+
+sub_commit(){
+  commit=git/FIRST/art-lesson/commit/
+  hash=$1
+  if [ -z $hash ]; then
+    hash=$(git rev-parse HEAD)
+  fi
+  echo $backlog_url$commit$hash
+  exit 0
+}
+
+subcommand=$1
 backlog_url=https://eysdevpro2.backlog.jp/
 
 # 引数別の処理定義
-while getopts "u:h" optKey; do
-  case "$optKey" in
-    u)
-      if [ ${OPTARG} = 'issue' ]; then
-        view=view/
-        current_branch_name=$(git rev-parse --abbrev-ref HEAD)
-        # xxx/<ISSUE_NUMBER> の 'xxx/' を削除して '<ISSUE_NUMBER>' を取得したい
-        issue=`echo $current_branch_name | sed -e "s/.*\///g"`
-        echo $backlog_url$view$issue
-        exit 0
-      elif [ ${OPTARG} = 'commit' ]; then
-        commit=git/FIRST/art-lesson/commit/
-        hash=$(git rev-parse HEAD)
-        echo $backlog_url$commit$hash
-        exit 0
-      fi
-      ;;
-    '-h'|'--help'|* )
+case $subcommand in
+  "" | "-h" | "--help")
       usage
       ;;
-  esac
-done
+  *)
+      shift
+      sub_${subcommand} $@
+      if [ $? = 127 ]; then
+        echo "Error: '$subcommand' is not a konwn subcommand.">&2
+        echo "       Run '$ProgName --help' for a list of known subcommands.">&2
+        exit 1
+      fi
+      ;;
+esac
 
