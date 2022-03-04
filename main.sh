@@ -16,6 +16,13 @@ EOM
   exit 2
 }
 
+# example of get arg
+# sub_hoge(){
+#   echo "Running 'hoge' command."
+#   echo "First arg is '$1'."
+#   echo "Second arg is '$2'."
+# }
+
 sub_issue(){
   view=view/
   issue=$1
