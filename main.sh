@@ -1,9 +1,12 @@
 #!/bin/bash
+
+ProgName=$(basename $0)
+
 # helpを作成
 # below is template
 # -a VALUE    A explanation for arg called a
 # -b          this option not take arg
-function usage {
+usage() {
   cat <<EOM
 Usage: $(basename "$0") [OPTION]...
   -u VALUE    gen url from current branch(ex.for commit comment)
