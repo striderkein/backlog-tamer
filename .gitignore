@@ -28,4 +28,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# append later
+# Vim
+*.swp
 
