@@ -8,9 +8,12 @@ script_name=$(basename $0)
 # -b          this option not take arg
 usage() {
   cat <<EOM
-Usage: $(basename "$0") [OPTION]...
-  -u VALUE    gen url from current branch(ex.for commit comment)
-  -h          Display help
+Usage: $script_name
+[OPTIONS]...
+  -h | --help                                        Display help
+[SUBCOMMANDS]...
+  issue  [ISSUE_NUMBER]                              gen url from current branch or ISSUE_NUMBER(if passed).
+  commit [COMMIT_HASH]                               gen url from hash of HEAD or COMMIT_HASH(if passed).
 EOM
 
   exit 2
