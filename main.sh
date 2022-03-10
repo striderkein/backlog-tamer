@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ProgName=$(basename $0)
+script_name=$(basename $0)
 
 # helpを作成
 # below is template
@@ -58,7 +58,7 @@ case $subcommand in
       sub_${subcommand} $@
       if [ $? = 127 ]; then
         echo "Error: '$subcommand' is not a konwn subcommand.">&2
-        echo "       Run '$ProgName --help' for a list of known subcommands.">&2
+        echo "       Run '$script_name --help' for a list of known subcommands.">&2
         exit 1
       fi
       ;;
