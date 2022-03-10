@@ -16,6 +16,11 @@ EOM
   exit 2
 }
 
+not_git_repo() {
+  # if not Git repository, end with error.
+  exit 2
+}
+
 # example of get arg
 # sub_hoge(){
 #   echo "Running 'hoge' command."
@@ -28,6 +33,9 @@ sub_issue(){
   issue=$1
   if [ -z $issue ]; then
     current_branch_name=$(git rev-parse --abbrev-ref HEAD)
+    if [ $(echo $?) != 0 ]; then
+      not_git_repo
+    fi
     # xxx/<ISSUE_NUMBER> の 'xxx/' を削除して '<ISSUE_NUMBER>' を取得したい
     issue=`echo $current_branch_name | sed -e "s/.*\///g"`
   fi
@@ -40,6 +48,9 @@ sub_commit(){
   hash=$1
   if [ -z $hash ]; then
     hash=$(git rev-parse HEAD)
+    if [ $(echo $?) != 0 ]; then
+      not_git_repo
+    fi
   fi
   echo $backlog_url$commit$hash
   exit 0
