@@ -14,6 +14,7 @@ Usage: $script_name
 [SUBCOMMANDS]...
   issue  [ISSUE_NUMBER]                              gen url from current branch or ISSUE_NUMBER(if passed).
   commit [COMMIT_HASH]                               gen url from hash of HEAD or COMMIT_HASH(if passed).
+  branch [ISSUE_URL | ISSUE_NUMBER] [BRANCH_TYPE]    description
 EOM
 
   exit 2
@@ -57,6 +58,24 @@ sub_commit(){
   fi
   echo $backlog_url$commit$hash
   exit 0
+}
+
+sub_branch(){
+  issue=$1
+  type=$2
+  if [ -z $type ]; then
+    type=feature
+  fi
+  if [ -z $issue ]; then
+    echo "issue number required."
+    exit 1
+  else
+    backlog_url=https://eysdevpro2.backlog.jp/view/
+    # URL から 'view/' 以前を削除, '#comment' 以降を削除
+    issue=`echo $issue | sed -e "s|$backlog_url||g" | sed -e "s/#.*$//g"`
+  fi
+  branch=$type/$issue
+  echo $branch
 }
 
 subcommand=$1
