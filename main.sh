@@ -44,7 +44,6 @@ sub_issue(){
     issue=`echo $current_branch_name | sed -e "s/.*\///g"`
   fi
   echo $backlog_url$view$issue
-  exit 0
 }
 
 sub_commit(){
@@ -57,7 +56,6 @@ sub_commit(){
     fi
   fi
   echo $backlog_url$commit$hash
-  exit 0
 }
 
 sub_branch(){
