@@ -33,7 +33,7 @@ not_git_repo() {
 # }
 
 sub_issue(){
-  view=view/
+  view=/view/
   issue=$1
   if [ -z $issue ]; then
     current_branch_name=$(git rev-parse --abbrev-ref HEAD)
@@ -47,7 +47,7 @@ sub_issue(){
 }
 
 sub_commit(){
-  commit=git/FIRST/art-lesson/commit/
+  commit=/git/FIRST/art-lesson/commit/
   hash=$1
   if [ -z $hash ]; then
     hash=$(git rev-parse HEAD)
@@ -77,7 +77,7 @@ sub_branch(){
 }
 
 subcommand=$1
-backlog_url=https://eysdevpro2.backlog.jp/
+backlog_url=https://eysdevpro2.backlog.jp
 
 # 引数別の処理定義
 case $subcommand in
