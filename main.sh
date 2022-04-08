@@ -78,9 +78,8 @@ sub_branch(){
     echo "issue number required."
     exit 1
   else
-    backlog_url=https://eysdevpro2.backlog.jp/view/
     # URL から 'view/' 以前を削除, '#comment' 以降を削除
-    issue=`echo $issue | sed -e "s|$backlog_url||g" | sed -e "s/#.*$//g"`
+    issue=`echo $issue | sed -e "s|$backlog_url/view/||g" | sed -e "s/#.*$//g"`
   fi
   branch=$type/$issue
   echo $branch
