@@ -15,6 +15,7 @@ Usage: $script_name
   issue  [ISSUE_NUMBER]                              gen url from current branch or ISSUE_NUMBER(if passed).
   commit [COMMIT_HASH]                               gen url from hash of HEAD or COMMIT_HASH(if passed).
   branch [ISSUE_URL | ISSUE_NUMBER] [BRANCH_TYPE]    description
+  rev [COMMIT_HASH]                                  gen Markdown from hash of HEAD or COMMIT_HASH(if passed).
 EOM
 
   exit 2
@@ -83,6 +84,18 @@ sub_branch(){
   fi
   branch=$type/$issue
   echo $branch
+}
+
+sub_rev(){
+  app=art-lesson
+  hash=$1
+  if [ -z $hash ]; then
+    hash=$(git rev-parse HEAD)
+    if [ $(echo $?) != 0 ]; then
+      not_git_repo
+    fi
+  fi
+  echo "#rev($app:$hash)"
 }
 
 subcommand=$1
