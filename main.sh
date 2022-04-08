@@ -48,14 +48,23 @@ sub_issue(){
 
 sub_commit(){
   commit=/git/FIRST/art-lesson/commit/
-  hash=$1
-  if [ -z $hash ]; then
+  arg=$1
+  hash=''
+  if [ -z $arg ]; then
     hash=$(git rev-parse HEAD)
     if [ $(echo $?) != 0 ]; then
       not_git_repo
     fi
+  elif [[ $arg =~ .*eysdevpro2\.backlog\.jp\/git\/FIRST\/art-lesson\/commit\/ ]]; then
+    # arg から URL を除去する処理
+    hash=`echo $arg | sed -e "s|$backlog_url$commit||g"`
+    # URL 含めて渡された場合はハッシュのみを返却
+    echo $hash
+  else
+    # ハッシュのみが渡された場合は URL を返却
+    hash=$arg
+    echo $backlog_url$commit$hash
   fi
-  echo $backlog_url$commit$hash
 }
 
 sub_branch(){
