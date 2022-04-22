@@ -12,10 +12,10 @@ Usage: $script_name
 [OPTIONS]...
   -h | --help                                        Display help
 [SUBCOMMANDS]...
-  issue  [ISSUE_NUMBER]                              gen url from current branch or ISSUE_NUMBER(if passed).
-  commit [COMMIT_HASH]                               gen url from hash of HEAD or COMMIT_HASH(if passed).
-  branch [ISSUE_URL | ISSUE_NUMBER] [BRANCH_TYPE]    description
-  rev [COMMIT_HASH]                                  gen Markdown from hash of HEAD or COMMIT_HASH(if passed).
+  issue  [ISSUE_NUMBER]                              echo backlog-url gen from current branch or ISSUE_NUMBER(if passed).
+  commit [COMMIT_HASH]                               echo backlog-url gen from hash of HEAD or COMMIT_HASH(if passed).
+  branch [ISSUE_URL | ISSUE_NUMBER] [BRANCH_TYPE]    echo branch name gen from ISSUE_URL or ISSUE_NUMBER with BRANCH_TYPE(e.g. fix, refactor).if BRANCH_TYPE not passed, append 'feature' prefix as default.
+  rev [COMMIT_HASH]                                  echo Markdown for Backlog gen from HEAD or your specific COMMIT_HASH(if passed).
 EOM
 
   exit 2
