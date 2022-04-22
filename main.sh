@@ -71,17 +71,19 @@ sub_commit(){
 sub_branch(){
   issue=$1
   type=$2
+  branch=''
   if [ -z $type ]; then
     type=feature
   fi
   if [ -z $issue ]; then
-    echo "issue number required."
-    exit 1
+    branch=$(git branch --contains | cut -d " " -f 2)
   else
     # URL から 'view/' 以前を削除, '#comment' 以降を削除
     issue=`echo $issue | sed -e "s|$backlog_url/view/||g" | sed -e "s/#.*$//g"`
   fi
-  branch=$type/$issue
+  if [ -z $branch ]; then
+    branch=$type/$issue
+  fi
   echo $branch
 }
 
