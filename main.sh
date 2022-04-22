@@ -56,6 +56,7 @@ sub_commit(){
     if [ $(echo $?) != 0 ]; then
       not_git_repo
     fi
+    echo $backlog_url$commit$hash
   elif [[ $arg =~ .*eysdevpro2\.backlog\.jp\/git\/FIRST\/art-lesson\/commit\/ ]]; then
     # arg から URL を除去する処理
     hash=`echo $arg | sed -e "s|$backlog_url$commit||g"`
