@@ -77,6 +77,7 @@ sub_branch(){
     type=feature
   fi
   if [ -z $issue ]; then
+    # '|' 以降の意味: '* master' を 'master' に加工する（行頭の '* ' を削除）
     branch=$(git branch --contains | cut -d " " -f 2)
   else
     # URL から 'view/' 以前を削除, '#comment' 以降を削除
