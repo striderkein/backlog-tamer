@@ -16,6 +16,7 @@ Usage: $script_name
   commit [COMMIT_HASH]                               echo backlog-url gen from hash of HEAD or COMMIT_HASH(if passed).
   branch [ISSUE_URL | ISSUE_NUMBER] [BRANCH_TYPE]    echo branch name gen from ISSUE_URL or ISSUE_NUMBER with BRANCH_TYPE(e.g. fix, refactor).if BRANCH_TYPE not passed, append 'feature' prefix as default.
   rev [COMMIT_HASH]                                  echo Markdown for Backlog gen from HEAD or your specific COMMIT_HASH(if passed).
+  tree [BRANCH_NAME]                                 echo backlog-url gen from current branch or BRANCH_NAME(if passed).
 EOM
 
   exit 2
@@ -101,6 +102,17 @@ sub_rev(){
   echo "#rev($app:$hash)"
 }
 
+sub_tree(){
+  branch=$1
+  # 引数がなければ branch に current branch をセットする
+  if [ -z $branch ]; then
+    # '|' 以降の意味: '* master' を 'master' に加工する（行頭の '* ' を削除）
+    branch=$(git branch --contains | cut -d " " -f 2)
+  fi
+  # ex. of URL: https://eysdevpro2.backlog.jp/git/FIRST/art-lesson/tree/feature%2FFIRST-10758
+  tree=$backlog_url/git/FIRST/art-lesson/tree/$branch
+  echo $tree
+}
 subcommand=$1
 backlog_url=https://eysdevpro2.backlog.jp
 
