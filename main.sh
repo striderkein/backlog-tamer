@@ -44,6 +44,9 @@ sub_issue(){
     fi
     # xxx/<ISSUE_NUMBER> の 'xxx/' を削除して '<ISSUE_NUMBER>' を取得したい
     issue=`echo $current_branch_name | sed -e "s/.*\///g"`
+  elif [[ $issue =~ ^[[:digit:]]+$ ]]; then
+    # 数値文字列のみを渡された場合は add prefix して「<PROJECT_NAME>-<ISSUE_NUMBER>」の形式に整形する
+    issue="FIRST-$issue"
   fi
   echo $backlog_url$view$issue
 }
