@@ -46,13 +46,13 @@ sub_issue(){
     issue=`echo $current_branch_name | sed -e "s/.*\///g"`
   elif [[ $issue =~ ^[[:digit:]]+$ ]]; then
     # 数値文字列のみを渡された場合は add prefix して「<PROJECT_NAME>-<ISSUE_NUMBER>」の形式に整形する
-    issue="FIRST-$issue"
+    issue="$project_key-$issue"
   fi
   echo $backlog_url$view$issue
 }
 
 sub_commit(){
-  commit=/git/FIRST/art-lesson/commit/
+  commit=/git/$project_key/$repo_name/commit/
   arg=$1
   hash=''
   if [ -z $arg ]; then
@@ -61,7 +61,7 @@ sub_commit(){
       not_git_repo
     fi
     echo $backlog_url$commit$hash
-  elif [[ $arg =~ .*eysdevpro2\.backlog\.jp\/git\/FIRST\/art-lesson\/commit\/ ]]; then
+  elif [[ $arg =~ .*eysdevpro2\.backlog\.jp\/git\/$project_key\/$repo_name\/commit\/ ]]; then
     # arg から URL を除去する処理
     hash=`echo $arg | sed -e "s|$backlog_url$commit||g"`
     # URL 含めて渡された場合はハッシュのみを返却
@@ -94,7 +94,6 @@ sub_branch(){
 }
 
 sub_rev(){
-  app=art-lesson
   hash=$1
   if [ -z $hash ]; then
     hash=$(git rev-parse HEAD)
@@ -102,7 +101,7 @@ sub_rev(){
       not_git_repo
     fi
   fi
-  echo "#rev($app:$hash)"
+  echo "#rev($repo_name:$hash)"
 }
 
 sub_tree(){
@@ -113,11 +112,16 @@ sub_tree(){
     branch=$(git branch --contains | cut -d " " -f 2)
   fi
   # ex. of URL: https://eysdevpro2.backlog.jp/git/FIRST/art-lesson/tree/feature%2FFIRST-10758
-  tree=$backlog_url/git/FIRST/art-lesson/tree/$branch
+  tree=$backlog_url/git/$project_key/$repo_name/tree/$branch
   echo $tree
 }
 subcommand=$1
 backlog_url=https://eysdevpro2.backlog.jp
+repo_name=`git config --get remote.origin.url | sed -E "s/(^.*\/)(.*)(\.git)$/\2/g"`
+if [ $(echo $?) != 0 ]; then
+  not_git_repo
+fi
+project_key=FIRST
 
 # 引数別の処理定義
 case $subcommand in
