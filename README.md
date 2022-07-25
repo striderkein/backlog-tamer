@@ -17,6 +17,14 @@ echo backlog-url gen from current branch or ISSUE_NUMBER(if passed).
 ```
 balo issue  [ISSUE_NUMBER]
 ```
+
+**使用例-1**
+「いま作業中のブランチに紐付いてるイシューが見たいやで… せや！」
+```
+open $(balo issue)
+# ブラウザで Backlog の関連イシューのページが開く
+```
+
 #### commit
 echo backlog-url gen from hash of HEAD or COMMIT_HASH(if passed).
 ```
