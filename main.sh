@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ./.env
+
 script_name=$(basename $0)
 
 # helpを作成
@@ -61,7 +63,7 @@ sub_commit(){
       not_git_repo
     fi
     echo $backlog_url$commit$hash
-  elif [[ $arg =~ .*eysdevpro2\.backlog\.jp\/git\/$project_key\/$repo_name\/commit\/ ]]; then
+  elif [[ $arg =~ .*$BASE_URL\/git\/$project_key\/$repo_name\/commit\/ ]]; then
     # arg から URL を除去する処理
     hash=`echo $arg | sed -e "s|$backlog_url$commit||g"`
     # URL 含めて渡された場合はハッシュのみを返却
@@ -111,17 +113,17 @@ sub_tree(){
     # '|' 以降の意味: '* master' を 'master' に加工する（行頭の '* ' を削除）
     branch=$(git branch --contains | cut -d " " -f 2)
   fi
-  # ex. of URL: https://eysdevpro2.backlog.jp/git/FIRST/art-lesson/tree/feature%2FFIRST-10758
+  # ex. of URL: https://yourcompany.backlog.jp/git/YOUR_PROJECT/your-repo/tree/your-branch
   tree=$backlog_url/git/$project_key/$repo_name/tree/$branch
   echo $tree
 }
 subcommand=$1
-backlog_url=https://eysdevpro2.backlog.jp
+backlog_url=$BASE_URL
 repo_name=`git config --get remote.origin.url | sed -E "s/(^.*\/)(.*)(\.git)$/\2/g"`
 if [ $(echo $?) != 0 ]; then
   not_git_repo
 fi
-project_key=FIRST
+project_key=$PROJECT_KEY
 
 # 引数別の処理定義
 case $subcommand in

@@ -32,3 +32,6 @@ Temporary Items
 # Vim
 *.swp
 
+# env
+.env
+
