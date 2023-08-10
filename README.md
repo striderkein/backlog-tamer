@@ -2,6 +2,7 @@
 
 ## How to install
 ```
+cp .env.example .env
 ./init.sh
 ```
 
