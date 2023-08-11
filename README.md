@@ -1,5 +1,5 @@
 # backlog-tamer
-## What't this?
+## What's this?
 backlog の URL は（GitHub と違って）やや煩雑な形式になっている。
 例えば
 issue の URL: `/view/<PROJECT_NAME>-<ISSUE_NUMBER>` （なんだ `view` って）
