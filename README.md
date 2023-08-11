@@ -1,9 +1,9 @@
 # backlog-tamer
 ## What's this?
-backlog の URL は（GitHub と違って）やや煩雑な形式になっている。
-例えば
-issue の URL: `/view/<PROJECT_NAME>-<ISSUE_NUMBER>` （なんだ `view` って）
-特定のコミットの URL: `/git/<PROJECT_NAME>/<REPOSITORY>/commit/<HASH>` （なんだ `git` って）
+backlog の URL は（GitHub と違って）やや煩雑な形式になっている。  
+例えば  
+issue の URL: `/view/<PROJECT_NAME>-<ISSUE_NUMBER>` （なんだ `view` って）  
+特定のコミットの URL: `/git/<PROJECT_NAME>/<REPOSITORY>/commit/<HASH>` （なんだ `git` って）  
 といった具合である。
 
 backlog-tamer は、推測しにくく使いにくいこいつらをなんとかてなづける（= tame）ためのツールである
